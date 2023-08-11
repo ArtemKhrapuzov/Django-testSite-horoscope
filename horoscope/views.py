@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 zodiac_dict = {
     'aries': 'Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).',
@@ -71,9 +72,12 @@ def get_info_about_el_zodiac(request, el: str):
 
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
-    if description:
-        return HttpResponse(description)
-    return HttpResponseNotFound(f"Неизвестный знак зодиака - {sign_zodiac}")
+    data = {
+        'description_zodiac': description,
+        'sign': sign_zodiac.title(),
+    }
+    return render(request, 'horoscope/info_zodiac.html', context=data)
+
 
 
 def get_info_about_sign_zodiac_by_number(request, sign_zodiac: int):
