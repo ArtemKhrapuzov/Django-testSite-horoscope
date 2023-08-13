@@ -1,4 +1,9 @@
-{% extends 'horoscope/base.html' %}
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css_add %}
+<link rel="stylesheet" href="{% static 'horoscope/css/index.css' %}">
+{% endblock %}
 
 {% block title %}
     Меню
