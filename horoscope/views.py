@@ -43,7 +43,7 @@ def type_sign(request):
     response = f"""
     <ul>
         {li_elements}
-    </ul>    
+    </ul>
     """
     return HttpResponse(response)
 
@@ -66,9 +66,12 @@ def get_info_about_el_zodiac(request, el: str):
 
 def get_info_about_sign_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
+    zodiacs = list(zodiac_dict)
     data = {
         'description_zodiac': description,
+        'sign_name': description.split()[0],
         'sign': sign_zodiac,
+        'zodiacs': zodiacs,
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
